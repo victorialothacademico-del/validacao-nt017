@@ -883,7 +883,6 @@ def mostrar_rpd_disponivel():
 
 # Mostra o status assim que a célula roda
 mostrar_rpd_disponivel()
-!pip install -q pypdf
 
 from google.colab import files
 import os, shutil
