@@ -883,53 +883,6 @@ def mostrar_rpd_disponivel():
 
 # Mostra o status assim que a célula roda
 mostrar_rpd_disponivel()
-!pip install -q pypdf
-
-from google.colab import files
-import os, shutil
-import pypdf
-
-PASTA_DOCUMENTOS = "/content/documentos"
-os.makedirs(PASTA_DOCUMENTOS, exist_ok=True)
-
-print("📎 Selecione todos os PDFs da obra para enviar:")
-enviados = files.upload()
-
-print(f"\n✅ {len(enviados)} arquivo(s) recebido(s). Puxando dados de cada PDF...\n")
-
-resumo_anexos = []
-for nome_arquivo in enviados:
-    destino = f"{PASTA_DOCUMENTOS}/{nome_arquivo}"
-    shutil.move(nome_arquivo, destino)
-
-    tamanho_kb = os.path.getsize(destino) / 1024
-    try:
-        leitor = pypdf.PdfReader(destino)
-        num_paginas = len(leitor.pages)
-        texto_bruto = leitor.pages[0].extract_text() or ""
-        preview = texto_bruto.strip().replace("\n", " ")[:200]
-        if not preview:
-            preview = "(sem texto selecionável — provavelmente PDF escaneado/imagem; a IA ainda consegue ler como imagem na Célula 7D)"
-    except Exception as e:
-        num_paginas = "?"
-        preview = f"(não foi possível ler o PDF localmente: {e})"
-
-    resumo_anexos.append({
-        "arquivo": nome_arquivo,
-        "tamanho_kb": round(tamanho_kb, 1),
-        "paginas": num_paginas,
-        "preview": preview,
-    })
-
-print("═" * 65)
-print("  PDFs ANEXADOS — prévia do conteúdo (antes de mandar para a IA)")
-print("═" * 65)
-for item in resumo_anexos:
-    print(f"\n📄 {item['arquivo']}  ({item['tamanho_kb']} KB, {item['paginas']} página(s))")
-    print(f"   Prévia: {item['preview']}")
-print("\n" + "═" * 65)
-
-print(f"\n✅ {len(enviados)} PDF(s) salvo(s) em {PASTA_DOCUMENTOS}/ — prontos para a Célula 7D.")
 import os
 import json
 import re
