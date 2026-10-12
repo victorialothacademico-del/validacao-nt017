@@ -881,25 +881,6 @@ def mostrar_rpd_disponivel():
     return restantes
 
 
-# Mostra o status assim que a célula roda
-mostrar_rpd_disponivel()
-
-import os, shutil
-import pypdf
-
-PASTA_DOCUMENTOS = "/content/documentos"
-os.makedirs(PASTA_DOCUMENTOS, exist_ok=True)
-
-print("📎 Selecione todos os PDFs da obra para enviar:")
-enviados = files.upload()
-
-print(f"\n✅ {len(enviados)} arquivo(s) recebido(s). Puxando dados de cada PDF...\n")
-
-resumo_anexos = []
-for nome_arquivo in enviados:
-    destino = f"{PASTA_DOCUMENTOS}/{nome_arquivo}"
-    shutil.move(nome_arquivo, destino)
-
     tamanho_kb = os.path.getsize(destino) / 1024
     try:
         leitor = pypdf.PdfReader(destino)
