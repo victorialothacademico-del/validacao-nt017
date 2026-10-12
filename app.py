@@ -12,7 +12,31 @@ from pipeline import (
     analisar_pasta_pdfs, MODELO_DECISAO, MODELO_EXTRACAO_PDF,
 )
 
-st.set_page_config(page_title="Validação Documental NT.017", layout="wide")
+st.set_page_config(
+    page_title="Validação Documental NT.017",
+    page_icon="⚡",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
+
+st.markdown("""
+<style>
+#MainMenu, footer {visibility: hidden;}
+.block-container {max-width: 1100px; margin: 0 auto; padding-top: 2.5rem;}
+h1 {color: #0B3C6F; font-weight: 700; padding-bottom: .5rem;
+    border-bottom: 3px solid #F28C00;}
+h2, h3 {color: #0B3C6F; font-weight: 600;}
+div.stButton > button, div.stFormSubmitButton > button {
+    background: #0B3C6F; color: #fff; border: none; border-radius: 6px;
+    padding: .6rem 1.4rem; font-weight: 600;}
+div.stButton > button:hover, div.stFormSubmitButton > button:hover {
+    background: #F28C00; color: #fff;}
+[data-testid="stForm"] {background: #F3F6FA; border: 1px solid #D9E2EC;
+    border-radius: 10px; padding: 1.5rem;}
+[data-testid="stFileUploader"] section {background: #F3F6FA;
+    border: 2px dashed #9FB3C8; border-radius: 10px;}
+</style>
+""", unsafe_allow_html=True)
 
 @st.cache_resource
 def db():
